@@ -1,0 +1,58 @@
+Salt: Protects weak passwords from Rainbow Table decryptions.
+    Different users with the same password will have a different hash.
+
+Model First or Code First approach.
+    Creating a Model for a DB table. Add it to the DataContext as a DbSet.
+    Then use dotnet's ef (Entity Framework) to create a Migration.
+
+        A data model changes during development and gets out of sync with the database. 
+        You can drop the database and let EF create a new one that matches the model, 
+        but this procedure results in the loss of data. 
+        The migrations feature in EF Core provides a way to incrementally update 
+        the database schema to keep it in sync with the application's data model 
+        while preserving existing data in the database.
+
+    dotnet ef migrations add AddedUserEntity
+
+    Apply the database changes:
+        dotnet ef database update
+
+The Repository Pattern
+    The repository mediates between the data source layer and the business layers of the application.
+    It queries the data source for the data, maps the data from the data source to a business entity, 
+    and persists changes in the business entity to the data source.
+    A repository separates the business logic from the interactions with the underlying data source or Web service.
+
+    Minimizes duplicate query logic.
+    Decouples application from persistence framework (Loosely-coupled application).
+    All DB queries in the same place.
+    Promotes testability.
+
+If a class implements the IDisposable interface, then it implements the Dispose function.
+You may find IDisposable down the inheritance rabbit hole.
+The Dispose function will release all resources used by the current instance of the class.
+To ensure the Dispose function is called as soon as we're finished with the class, 
+surround a new instance of the class with a using statement:
+    using(var hmac = new System.Security.Cryptography.HMACSHA512()) {
+        password 
+    }
+
+https://docs.microsoft.com/en-us/aspnet/core/fundamentals/dependency-injection?view=aspnetcore-2.2
+Dependency Injection design pattern.
+    Add services in the Configuration function inside of the Startup.cs file,
+    then those services can be injected into constructors.
+    Example: In the Repository design pattern, we can add the DBContext as a service,
+    then inject that service into a Repository constructor.
+
+services.AddSingleton - The same instance is used throughout the application for every call. Problem when concurrent requests are coming in.
+services.AddTransient - New instance created for each call to the class. Useful for lightweight, stateless services.
+services.AddScoped - In the middle. The service instance is created once per HTTP request. It creates one instance for each HTTP request, 
+    but it uses the same instance for other calls within the same web request. This is suitable for something like an Authentication Repository.
+
+JWTs
+    JSON Web Tokens
+    Industry Standard for tokens (RFC 7519)
+    Self-contained and can contain:
+        Credentials
+        Claims
+        Other information
