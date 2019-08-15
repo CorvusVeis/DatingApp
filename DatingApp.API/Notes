@@ -28,6 +28,9 @@ The Repository Pattern
     All DB queries in the same place.
     Promotes testability.
 
+    https://softwareengineering.stackexchange.com/questions/180851/why-shouldnt-i-use-the-repository-pattern-with-entity-framework/220126
+    
+
 If a class implements the IDisposable interface, then it implements the Dispose function.
 You may find IDisposable down the inheritance rabbit hole.
 The Dispose function will release all resources used by the current instance of the class.
