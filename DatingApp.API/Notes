@@ -59,3 +59,10 @@ JWTs
         Credentials
         Claims
         Other information
+
+mysql
+    mysql -u appuser -p       start the server
+
+create a wwwroot folder in the API. Change the build output folder in angular.
+ng build --prod --build-optimizer=false
+dotnet run
